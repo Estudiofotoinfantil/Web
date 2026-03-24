@@ -162,12 +162,21 @@
   .fade-in { opacity: 0; transform: translateY(25px); transition: var(--transition); }
   .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+  /* FIX DEL LIGHTBOX (GALERÍA AMPLIADA) */
+  .lum-lightbox { z-index: 10001 !important; }
+  .lum-lightbox-inner img.lum-img {
+    max-width: 95vw !important;
+    max-height: 85vh !important;
+    object-fit: contain !important;
+  }
+
+  /* MEDIA QUERIES MOVILES */
   @media (max-width: 768px) {
     .nav-links { display: none; }
     .hero h1 { font-size: 2.2rem; }
     .service-card img { height: 300px; }
     .emotional-sell { grid-template-columns: 1fr; text-align: center; padding: 60px 5%; }
-    .emotional-slider { aspect-ratio: 16/9; order: -1; } /* Un poco más bajo en móvil */
+    .emotional-slider { aspect-ratio: 16/9; order: -1; } 
     .emotional-text h2 { font-size: 2rem; }
     .gallery-grid { grid-template-columns: 1fr; }
   }
@@ -215,7 +224,7 @@
       </div>
 
       <div class="service-card fade-in">
-        <img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774371377/portada_Nuev_mm_qdvdyv.jpg"Sesión Mes a Mes">
+        <img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774371377/portada_Nuev_mm_qdvdyv.jpg" alt="Sesión Mes a Mes">
         <h3>Mes a Mes</h3>
         <p>No dejes que los cambios se te escapen. Capturamos su evolución mes tras mes hasta llegar a su primer año.</p>
         <button onclick="filterGallery('mes-a-mes')" class="btn btn-gold" style="margin-bottom: 10px;">Ver Galería Mes a Mes</button>
@@ -333,7 +342,6 @@
 <script>
   new LuminousGallery(document.querySelectorAll(".lightbox"));
 
-  // Lógica de Slider Emocional
   const slides = document.querySelectorAll('.slide');
   let currentSlide = 0;
   function nextSlide() {
@@ -341,7 +349,7 @@
     currentSlide = (currentSlide + 1) % slides.length;
     slides[currentSlide].classList.add('active');
   }
-  setInterval(nextSlide, 3000); // Cambio cada 3 segundos
+  setInterval(nextSlide, 3000); 
 
   function filterGallery(category) {
     const items = document.querySelectorAll('.gallery-item');
@@ -363,7 +371,6 @@
     }
   }
 
-  // Título Hero
   const titleText = "Tu bebé cambiará mañana. Guardá su esencia hoy.";
   const titleEl = document.getElementById("hero-title");
   let i = 0;
@@ -376,7 +383,6 @@
   }
   typeWriter();
 
-  // Testimonios
   const testimonials = [
     { text: "Haber hecho el seguimiento mes a mes fue la mejor decisión. Hoy veo cómo cambió y me emociona tener cada etapa guardada.", author: "— Julieta, mamá de Mateo" },
     { text: "Lloré cuando vi las fotos. Lograron captar exactamente la mirada de mi hijo. Es un tesoro para toda la vida.", author: "— Romina, mamá de Benja" },
