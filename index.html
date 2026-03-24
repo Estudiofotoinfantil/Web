@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudio Infantil | Memorias que el tiempo no podrá borrar</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/luminous-lightbox/2.3.2/luminous-basic.min.css">
+
+<style>
+  :root {
+    --primary-color: #f9f6f2;
+    --text-color: #333230;
+    --accent-color: #bfa071;
+    --urgent-color: #a67c52;
+    --bg-white: #ffffff;
+    --transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background-color: var(--primary-color); color: var(--text-color); line-height: 1.7; overflow-x: hidden; }
+  h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 400; }
+  a { text-decoration: none; transition: 0.3s; }
+
+  /* NAVBAR */
+  nav {
+    position: fixed; top: 0; width: 100%; padding: 20px 5%;
+    display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+    background: rgba(249, 246, 242, 0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; letter-spacing: 2px; color: var(--text-color); font-weight: 600; }
+  .nav-links a { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-color); margin-left: 20px; font-weight: 600; }
+  .nav-links a.cta-nav { color: var(--accent-color); border-bottom: 1px solid var(--accent-color); }
+
+  /* HERO */
+  .hero {
+    height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center;
+    background: url('https://res.cloudinary.com/dyoznr9q8/image/upload/v1774357426/Portada_akyccs.jpg') center/cover no-repeat;
+    color: white; padding: 0 20px;
+  }
+  .hero::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.35); }
+  .hero-content { position: relative; z-index: 10; max-width: 800px; }
+  .hero h1 { font-size: clamp(2.2rem, 7vw, 4rem); line-height: 1.1; margin-bottom: 20px; font-style: italic; min-height: 2.2em; }
+  .hero p { font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 35px; font-weight: 300; }
+
+  .availability-tag {
+    background: var(--urgent-color); color: white; padding: 12px; text-align: center;
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;
+  }
+
+  section { padding: 80px 5%; max-width: 1300px; margin: 0 auto; }
+  .section-title { text-align: center; margin-bottom: 40px; }
+  .section-title h2 { font-size: 2.8rem; margin-bottom: 10px; }
+  .section-title span { color: var(--accent-color); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 3px; font-weight: 600; }
+
+  /* SERVICIOS */
+  .services-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 25px; 
+  }
+  .service-card { 
+    background: var(--bg-white); 
+    padding: 25px; 
+    transition: var(--transition); 
+    border: 1px solid rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+  }
+  .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+  .service-card img { width: 100%; height: 400px; object-fit: cover; margin-bottom: 25px; }
+  .service-card h3 { font-size: 1.6rem; margin-bottom: 12px; }
+  .service-card p { font-size: 0.95rem; color: #666; margin-bottom: 25px; flex-grow: 1; }
+
+  /* BOTONES */
+  .btn {
+    display: inline-block; padding: 16px 30px; font-size: 0.75rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 2px; cursor: pointer; border: none; text-align: center;
+  }
+  .btn-gold { background: var(--accent-color); color: white; width: 100%; }
+  .btn-gold:hover { background: var(--text-color); }
+  .btn-outline-white { border: 1px solid white; color: white; width: auto; }
+
+  /* SECCIÓN EMOCIONAL CON SLIDER CORREGIDO (SOLO HORIZONTALES) */
+  .emotional-sell {
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 50px;
+    padding: 100px 5%;
+    margin: 40px 0;
+  }
+  .emotional-text span { color: var(--accent-color); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 3px; font-weight: 600; }
+  .emotional-text h2 { font-size: 3rem; margin-bottom: 20px; line-height: 1.2; font-family: 'Playfair Display', serif; }
+  .emotional-text p { font-size: 1.1rem; margin-bottom: 30px; color: #555; }
+  
+  /* Contenedor del Slider optimizado para horizontales */
+  .emotional-slider {
+    width: 100%;
+    aspect-ratio: 16 / 10; /* Proporción horizontal elegante */
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 20px 20px 0px var(--primary-color);
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  .slide.active { opacity: 1; }
+
+  /* TESTIMONIO ANIMADO */
+  .testimonial-box { background: #fff; padding: 60px 5%; text-align: center; margin-top: 40px; border-top: 1px solid #f0f0f0; }
+  .testimonial-box p { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-style: italic; color: #444; max-width: 800px; margin: 0 auto 15px; }
+
+  /* FILTROS GALERÍA */
+  .gallery-filters { text-align: center; margin-bottom: 30px; }
+  .filter-btn {
+    background: none; border: none; padding: 10px 20px; font-family: 'Inter', sans-serif;
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
+    color: #888; transition: 0.3s; position: relative;
+  }
+  .filter-btn.active { color: var(--accent-color); font-weight: 600; }
+  .filter-btn.active::after {
+    content: ''; position: absolute; bottom: 0; left: 25%; width: 50%; height: 2px; background: var(--accent-color);
+  }
+
+  /* GALERÍA */
+  .gallery-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+    gap: 15px;
+    min-height: 400px;
+    align-items: start;
+  }
+  .gallery-item { aspect-ratio: 16/9; overflow: hidden; position: relative; cursor: zoom-in; background: #eee; display: none; }
+  .gallery-item.maternidad { aspect-ratio: 3/4; }
+  .gallery-item.show { display: block; animation: fadeIn 0.5s ease forwards; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 1s; }
+  .gallery-item:hover img { transform: scale(1.05); }
+
+  /* WHATSAPP */
+  .whatsapp-float {
+    position: fixed; bottom: 30px; right: 30px; background: #25D366; width: 60px; height: 60px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); } 70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
+
+  footer { padding: 60px 5%; text-align: center; background: #fff; }
+  .footer-links { margin: 20px 0; }
+  .footer-links a { color: var(--accent-color); margin: 0 15px; font-weight: 600; font-size: 0.85rem; }
+
+  .fade-in { opacity: 0; transform: translateY(25px); transition: var(--transition); }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2.2rem; }
+    .service-card img { height: 300px; }
+    .emotional-sell { grid-template-columns: 1fr; text-align: center; padding: 60px 5%; }
+    .emotional-slider { aspect-ratio: 16/9; order: -1; } /* Un poco más bajo en móvil */
+    .emotional-text h2 { font-size: 2rem; }
+    .gallery-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="logo">ESTUDIO FOTO INFANTIL</a>
+    <div class="nav-links">
+      <a href="#sesiones">Sesiones</a>
+      <a href="#galeria">Galería</a>
+      <a href="https://www.instagram.com/Estudio_fotoinfantil" target="_blank">Instagram</a>
+      <a href="https://wa.me/5491130448139?text=Hola!%20Quiero%20asegurar%20un%20cupo" class="cta-nav">RESERVAR LUGAR</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <h1 id="hero-title"></h1>
+      <p class="fade-in">Congelamos el hoy para que puedas volver a abrazar este momento siempre que quieras.</p>
+      <div class="fade-in" style="transition-delay: 0.5s;">
+        <a href="#sesiones" class="btn btn-outline-white">Ver Sesiones Especiales</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="availability-tag">
+    ⚠️ Atención: Agenda con <b>cupos limitados</b> para garantizar exclusividad.
+  </div>
+
+  <section id="sesiones">
+    <div class="section-title fade-in">
+      <span>Momentos Únicos</span>
+      <h2>Acompañamos su crecimiento</h2>
+    </div>
+    
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774357831/Emb3_ffrbvk.jpg" alt="Maternidad">
+        <h3>Maternidad</h3>
+        <p>La dulce espera merece ser retratada. Un homenaje a vos y a la conexión mágica con tu bebé en camino.</p>
+        <button onclick="filterGallery('maternidad')" class="btn btn-gold" style="margin-bottom: 10px;">Ver Galería Maternidad</button>
+        <a href="https://wa.me/5491130448139?text=Hola!%20quiero%20mas%20informacion%20de%20maternidad" target="_blank" class="btn btn-gold">Pedir Info</a>
+      </div>
+
+      <div class="service-card fade-in">
+        <img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774299822/portada_mm_smcp9g.jpg" alt="Sesión Mes a Mes">
+        <h3>Mes a Mes</h3>
+        <p>No dejes que los cambios se te escapen. Capturamos su evolución mes tras mes hasta llegar a su primer año.</p>
+        <button onclick="filterGallery('mes-a-mes')" class="btn btn-gold" style="margin-bottom: 10px;">Ver Galería Mes a Mes</button>
+        <a href="https://wa.me/5491130448139?text=Hola%20quiero%20mas%20informacion%20de%20seguimiento%20mes%20a%20mes" target="_blank" class="btn btn-gold">Pedir Info</a>
+      </div>
+
+      <div class="service-card fade-in">
+        <img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774300262/1a%C3%B1oportada_uuwmdc.jpg" alt="Pre-Añito">
+        <h3>Pre-Añito</h3>
+        <p>Hoy tu bebé ya tiene sus propios gestos y picardías. Vamos a detener el reloj por un ratito para guardar toda la magia.</p>
+        <button onclick="filterGallery('pre-anito')" class="btn btn-gold" style="margin-bottom: 10px;">Ver Galería Pre-Añito</button>
+        <a href="https://wa.me/5491130448139?text=Hola%20quiero%20mas%20informacion%20de%20Pre%20a%C3%B1ito" target="_blank" class="btn btn-gold">Pedir Info</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonial-box fade-in">
+    <p id="testimonial-text" style="min-height: 4.5em;"></p>
+    <span id="testimonial-author" style="font-weight: 600; color: var(--accent-color); display: block; margin-top: 10px;"></span>
+  </section>
+
+  <section class="emotional-sell fade-in">
+    <div class="emotional-text">
+      <span>Lo que realmente importa</span>
+      <h2>Ellos crecen rápido, <br><em>pero tus recuerdos pueden durar siempre.</em></h2>
+      <p>A veces, en el caos de los pañales y las noches sin dormir, olvidamos lo rápido que el tiempo se lleva estos momentos. Esos hoyuelos en las manos, esa forma de mirarte... todo cambia en un parpadeo. <br><br>
+      No solo saco fotos. Guardo la esencia de tu familia para que, dentro de 20 años, puedas volver a sentir exactamente lo que sentís hoy.</p>
+      <a href="https://wa.me/5491130448139?text=Hola!%20Le%C3%AD%20sobre%20el%20valor%20de%20los%20recuerdos%20y%20quiero%20reservar%20una%20sesi%C3%B3n" class="btn btn-gold" style="width: auto;">Asegurar mi recuerdo hoy</a>
+    </div>
+    <div class="emotional-slider">
+      <img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308201/MM1_mfkdgc.jpg" class="slide active" alt="Sesión Mes a Mes">
+      <img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308198/MM7_ysidri.jpg" class="slide" alt="Sesión Bebé">
+      <img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774296253/A%C3%B1o2_vtc3p9.jpg" class="slide" alt="Pre-añito">
+    </div>
+  </section>
+
+  <section id="galeria">
+    <div class="section-title fade-in">
+      <span>Galería</span>
+      <h2>Nuestras Historias</h2>
+    </div>
+
+    <div class="gallery-filters fade-in">
+      <button class="filter-btn active" onclick="filterGallery('todos')">Todos</button>
+      <button class="filter-btn" onclick="filterGallery('maternidad')">Maternidad</button>
+      <button class="filter-btn" onclick="filterGallery('mes-a-mes')">Mes a Mes</button>
+      <button class="filter-btn" onclick="filterGallery('pre-anito')">Pre-Añito</button>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item show pre-anito">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774296255/A%C3%B1o6_ih12gj.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774296255/A%C3%B1o6_ih12gj.jpg" alt="Pre-Añito 1"></a>
+      </div>
+      <div class="gallery-item show pre-anito">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774296253/A%C3%B1o5_filg5b.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774296253/A%C3%B1o5_filg5b.jpg" alt="Pre-Añito 2"></a>
+      </div>
+      <div class="gallery-item show pre-anito">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774296250/A%C3%B1o1_eh2925.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774296250/A%C3%B1o1_eh2925.jpg" alt="Pre-Añito 3"></a>
+      </div>
+      <div class="gallery-item show pre-anito">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774296253/A%C3%B1o2_vtc3p9.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774296253/A%C3%B1o2_vtc3p9.jpg" alt="Pre-Añito 4"></a>
+      </div>
+      <div class="gallery-item show pre-anito">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308804/A%C3%B1o4_wn8gai.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308804/A%C3%B1o4_wn8gai.jpg" alt="Pre-Añito 5"></a>
+      </div>
+
+      <div class="gallery-item show mes-a-mes">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308201/MM1_mfkdgc.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308201/MM1_mfkdgc.jpg" alt="Mes a Mes 1"></a>
+      </div>
+      <div class="gallery-item show mes-a-mes">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308199/MM4_feu3jy.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308199/MM4_feu3jy.jpg" alt="Mes a Mes 2"></a>
+      </div>
+      <div class="gallery-item show mes-a-mes">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308198/MM3_o00s8m.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308198/MM3_o00s8m.jpg" alt="Mes a Mes 3"></a>
+      </div>
+      <div class="gallery-item show mes-a-mes">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308198/MM7_ysidri.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308198/MM7_ysidri.jpg" alt="Mes a Mes 4"></a>
+      </div>
+      <div class="gallery-item show mes-a-mes">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308198/MM5_mnpaoh.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774308198/MM5_mnpaoh.jpg" alt="Mes a Mes 5"></a>
+      </div>
+
+      <div class="gallery-item show maternidad">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774298390/Emb3_ffrbvk.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774298390/Emb3_ffrbvk.jpg" alt="Maternidad 1"></a>
+      </div>
+      <div class="gallery-item show maternidad">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774306979/Emb2_tn8o11.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774306979/Emb2_tn8o11.jpg" alt="Maternidad 2"></a>
+      </div>
+      <div class="gallery-item show maternidad">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774306978/Emb6_atvzw1.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774306978/Emb6_atvzw1.jpg" alt="Maternidad 3"></a>
+      </div>
+      <div class="gallery-item show maternidad">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774306978/Emb7_n3n1pl.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774306978/Emb7_n3n1pl.jpg" alt="Maternidad 4"></a>
+      </div>
+      <div class="gallery-item show maternidad">
+        <a href="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774306984/emb5_iqaysp.jpg" class="lightbox"><img src="https://res.cloudinary.com/dyoznr9q8/image/upload/v1774306984/emb5_iqaysp.jpg" alt="Maternidad 5"></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h2 class="logo">ESTUDIO INFANTIL</h2>
+    <div class="footer-links">
+        <a href="https://www.instagram.com/Estudio_fotoinfantil" target="_blank">@Estudio_fotoinfantil</a>
+        <a href="https://wa.me/5491130448139">WhatsApp</a>
+    </div>
+    <p style="font-size: 0.7rem; color: #999;">&copy; 2026 Estudio Fotográfico. G. de Laferrere, Buenos Aires.</p>
+  </footer>
+
+  <a href="https://wa.me/5491130448139?text=Hola!%20Tengo%20una%20consulta" class="whatsapp-float" target="_blank">
+    <svg width="30" height="30" viewBox="0 0 448 512" fill="white"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-23.1-115-65.1-157zM223.9 414.9c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 334.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-2.1-3.6 2.1-3.2 7.2-13.3 2.8-5.6 1.4-10.5-.5-14.3-1.9-3.7-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+  </a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/luminous-lightbox/2.3.2/luminous.min.js"></script>
+<script>
+  new LuminousGallery(document.querySelectorAll(".lightbox"));
+
+  // Lógica de Slider Emocional
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+  function nextSlide() {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }
+  setInterval(nextSlide, 3000); // Cambio cada 3 segundos
+
+  function filterGallery(category) {
+    const items = document.querySelectorAll('.gallery-item');
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => {
+      btn.classList.remove('active');
+      if(btn.innerText.toLowerCase() === category.replace('-', ' ') || (category === 'todos' && btn.innerText === 'Todos')) {
+        btn.classList.add('active');
+      }
+    });
+    items.forEach(item => {
+      item.classList.remove('show');
+      if (category === 'todos' || item.classList.contains(category)) {
+        setTimeout(() => item.classList.add('show'), 10);
+      }
+    });
+    if(category !== 'todos') {
+      document.getElementById('galeria').scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // Título Hero
+  const titleText = "Tu bebé cambiará mañana. Guardá su esencia hoy.";
+  const titleEl = document.getElementById("hero-title");
+  let i = 0;
+  function typeWriter() {
+    if (i < titleText.length) {
+      titleEl.innerHTML += titleText.charAt(i);
+      i++;
+      setTimeout(typeWriter, 55);
+    }
+  }
+  typeWriter();
+
+  // Testimonios
+  const testimonials = [
+    { text: "Haber hecho el seguimiento mes a mes fue la mejor decisión. Hoy veo cómo cambió y me emociona tener cada etapa guardada.", author: "— Julieta, mamá de Mateo" },
+    { text: "Lloré cuando vi las fotos. Lograron captar exactamente la mirada de mi hijo. Es un tesoro para toda la vida.", author: "— Romina, mamá de Benja" },
+    { text: "Las fotos son un sueño, pero la paciencia que le tuvieron a mi bebé no tiene precio. Me sentí súper tranquila.", author: "— Valeria, mamá de Delfi" }
+  ];
+
+  let testIdx = 0;
+  const testEl = document.getElementById("testimonial-text");
+  const authEl = document.getElementById("testimonial-author");
+
+  function typeTestimonial() {
+    let currentText = testimonials[testIdx].text;
+    let currentAuth = testimonials[testIdx].author;
+    let charIdx = 0;
+    testEl.innerHTML = "";
+    authEl.innerHTML = "";
+    function typing() {
+      if (charIdx < currentText.length) {
+        testEl.innerHTML += currentText.charAt(charIdx);
+        charIdx++;
+        setTimeout(typing, 35); 
+      } else {
+        authEl.innerHTML = currentAuth;
+        setTimeout(() => {
+          testIdx = (testIdx + 1) % testimonials.length;
+          typeTestimonial();
+        }, 4000); 
+      }
+    }
+    typing();
+  }
+  typeTestimonial();
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
